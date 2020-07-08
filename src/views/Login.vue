@@ -78,9 +78,9 @@ export default {
   justify-content: center;
   align-items: center;
   // background-color: pink;
-  background-image: url('../assets/02.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-image: url('../assets/02.png');
+  // background-repeat: no-repeat;
+  // background-size: cover;
 
   .val_input {
     width: 200px;

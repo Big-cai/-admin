@@ -74,8 +74,9 @@ export default {
       }
     },
     logout(){
-      
-      this.$router.push('/login')
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      this.$router.replace('/login')
     }
   }
 }
@@ -103,6 +104,7 @@ export default {
     img {
       width: 40px;
       height: 40px;
+      object-fit: cover;
       border-radius: 40px;
       margin-right: 40px;
     }
@@ -125,6 +127,7 @@ export default {
   background-color: #f3f3f3;
   color: #333;
   line-height: 40px;
+ 
 }
 
 body > .el-container {

@@ -23,9 +23,13 @@ const routes = [
     component: Login
   },
   {
+    path:'*',
+    redirect:'/index'
+  },
+  {
     // 主页
     path: '/index',
-    component: ()=>import("../views/Home.vue"),
+    component:Home,
     name: 'Home',
     meta:{
       breadcrumbs:'后台首页'

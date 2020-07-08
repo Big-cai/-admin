@@ -1,9 +1,7 @@
 <template>
 <div>
-
-  <div class="content">
-    <span>封面</span>
-      <el-upload 
+    <el-form-item label="封面">
+          <el-upload 
       :action="$axios.defaults.baseURL + '/upload'" 
       :headers="{
         Authorization:'Bearer ' + token
@@ -12,7 +10,7 @@
       >
       <i class="el-icon-plus"></i>
     </el-upload>
-  </div>
+    </el-form-item>
 </div>
 </template>
 

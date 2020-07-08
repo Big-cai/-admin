@@ -5,25 +5,29 @@
       :data="postList"
       style="width: 100%"
       :cell-style="rowClass"
-      :header-cell-style="headClass">
-      <el-table-column prop="id" label="ID" width="80px"> 
-      </el-table-column>
-        <el-table-column label="略缩图"width="234px">
-            <template slot-scope="scope">
-              <img v-if="scope.row.cover[0]" :src="scope.row.cover[0].url" alt="" class="list_img">
-              <img v-else src="../assets/wuwu.jpg" alt="">
-            </template>
-        </el-table-column>
-      <el-table-column prop="title" label="类型" width="250">
-      </el-table-column>
-      <el-table-column prop="user.nickname" label="姓名" width="150">
-      </el-table-column>
-      <el-table-column label="操作" width="150px">
+      :header-cell-style="headClass"
+    >
+      <el-table-column prop="id" label="ID" width="80px"></el-table-column>
+      <el-table-column label="略缩图" width="234px">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <img
+            v-if="scope.row.cover[0]"
+            :src="scope.row.cover[0].url | fixUrl"
+            alt
+            class="list_img"
+          />
+          <img v-else src="../assets/wuwu.jpg" alt />
         </template>
       </el-table-column>
+      <el-table-column prop="title" label="类型" width="250"></el-table-column>
+      <el-table-column prop="user.nickname" label="姓名" width="150"></el-table-column>
+
+      <el-table-column label="操作" width="150px">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="$router.push('/index/release?id=' + scope.row.id)">编辑</el-button>
+        </template>
+      </el-table-column>
+      
     </el-table>
 
     <!-- 分页部分 -->
@@ -42,31 +46,40 @@
 export default {
   data() {
     return {
-      pageIndex:1,
+      pageIndex: 1,
       pageSize: 5,
       total: 0,
-      postList:[],
+      postList: []
     }
   },
-  created(){
+  created() {
     this.loadPage()
-   
+  },
+  filters: {
+    fixUrl(url) {
+      const reg = /^http/
+      if (reg.test(url)) {
+        return url
+      } else {
+        return 'http://127.0.0.1:3000' + url
+      }
+    }
   },
   methods: {
-    loadPage(){
-         this.$axios({
-      url:'/post',
-      params:{
-        // 当前页码
-        pageIndex:this.pageIndex,
-        // 页数
-        pageSize:this.pageSize
-      }
-    }).then(res=>{
-      console.log(res.data);
-      this.postList=res.data.data
-      this.total=res.data.total
-    })
+    loadPage() {
+      this.$axios({
+        url: '/post',
+        params: {
+          // 当前页码
+          pageIndex: this.pageIndex,
+          // 页数
+          pageSize: this.pageSize
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.postList = res.data.data
+        this.total = res.data.total
+      })
     },
     headClass() {
       return 'text-align:center;'
@@ -74,18 +87,18 @@ export default {
     rowClass() {
       return 'text-align:center;'
     },
-       handleCurrentChange(pageIndex){
-         console.log(pageIndex);
-         
-        //点击按钮 获取当前页码;
-        this.pageIndex = pageIndex
-        // 在请求数据
-        this.loadPage();
+    handleCurrentChange(pageIndex) {
+      console.log(pageIndex)
+      //点击按钮 获取当前页码;
+      this.pageIndex = pageIndex
+      // 在请求数据
+      this.loadPage()
     },
-    sizeChange(pageSize){
+    sizeChange(pageSize) {
       this.pageSize = pageSize
       this.loadPage()
     }
+    // 编辑文章
   }
 }
 </script>
@@ -97,7 +110,7 @@ export default {
 div {
   text-align: center;
 }
-.list_img{
+img {
   width: 100%;
   height: 146px;
   object-fit: cover;

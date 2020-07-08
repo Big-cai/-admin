@@ -27,6 +27,14 @@ router.beforeEach((to,from,next)=>{
   } 
 })
 
+// 请求拦截器
+axios.interceptors.request.use(config=>{
+  if(!config.headers.Authorization && localStorage.getItem('token')){
+    config.headers.Authorization='Bearer ' + localStorage.getItem('token')
+  }
+  return config
+})
+
 Vue.config.productionTip = false
 new Vue({
   router,
