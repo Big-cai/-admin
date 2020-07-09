@@ -128,6 +128,8 @@ export default {
           if(newImg.url.indexOf('http') == -1){
             newImg.url = this.$axios.defaults.baseURL + newImg.url
           }
+          // 获取旧文章图片，数据中没有uid属性，组件会自动每个一个 1、、
+          newImg.uid=newImg.id
           return newImg
         })
         res.data.data.cover = newCover
@@ -185,7 +187,7 @@ export default {
         data:this.form
       }).then(res=>{
         console.log(res.data);
-        
+        this.$router.push('/index/list')
       })
     }
   },
