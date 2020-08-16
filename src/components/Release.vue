@@ -50,6 +50,9 @@
           </el-upload>
         </el-form-item>
 
+
+
+
         <el-form-item>
           <el-button type="primary" @click="submit" >发布</el-button>
         </el-form-item>

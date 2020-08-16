@@ -93,6 +93,7 @@ export default {
       this.pageIndex = pageIndex
       // 在请求数据
       this.loadPage()
+      
     },
     sizeChange(pageSize) {
       this.pageSize = pageSize
